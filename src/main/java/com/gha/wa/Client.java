@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 import org.eclipse.collections.impl.list.mutable.FastList;
 
@@ -19,6 +18,7 @@ import com.gha.wa.model.data.RawDebitDaoImpl;
 import com.gha.wa.model.logic.CcyConsolidationVisitor;
 import com.gha.wa.model.logic.FxRates;
 import com.gha.wa.model.logic.MonthlyNotationVisitor;
+import com.google.common.base.Optional;
 
 import io.bloco.faker.Faker;
 

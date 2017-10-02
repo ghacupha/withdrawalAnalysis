@@ -3,7 +3,6 @@ package com.gha.wa.model.data;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.gha.wa.api.RawDebitDao;
 import com.gha.wa.model.MonthlyDebit;
 import com.gha.wa.model.RawDebit;
+import com.google.common.base.Optional;
 
 public class RawDebitDaoImpl implements RawDebitDao{
 
@@ -159,7 +159,7 @@ public class RawDebitDaoImpl implements RawDebitDao{
 	@Override
 	public RawDebit getByIdRawDebit(int id) {
 
-		Optional<RawDebit> rawDebit = Optional.empty();
+		Optional<RawDebit> rawDebit = Optional.absent();
 
 		EntityManager em = getEntityManager();
 
@@ -180,7 +180,7 @@ public class RawDebitDaoImpl implements RawDebitDao{
 	@Override
 	public void updateRawDebitId(int id,RawDebit rawDebitVo) {
 		EntityManager em = getEntityManager();
-		Optional<RawDebit> updebit = Optional.empty();
+		Optional<RawDebit> updebit = Optional.absent();
 
 		try {
 			log.debug("Trying to get rawDebit object id : {} from {}",
@@ -223,38 +223,6 @@ public class RawDebitDaoImpl implements RawDebitDao{
 		log.trace("Saving rowList of size {} in database, with {}", rowList.size(), em);
 		
 		//TODO
-	}
-	
-	private Optional<Collection<RawDebit>> acquireRawDebitList(List<Row> rowList, String className){
-		
-		Collection<RawDebit> rawDebits = new FastList<>();
-		
-		log.trace("Acquiring a list of domain object from the row list");
-		
-		for(Row row : rowList) {
-			
-			Class<?> clazz = Class.forName(className);
-			
-			 // Search for an "appropriate" constructor.
-		    for (Constructor<?> ctor : clazz.getConstructors()) {
-		        Class<?>[] paramTypes = ctor.getParameterTypes();
-
-		        // If the arity matches, let's use it.
-		        if (args.size() == paramTypes.length) {
-
-		            // Convert the String arguments into the parameters' types.
-		            Object[] convertedArgs = new Object[args.size()];
-		            for (int i = 0; i < convertedArgs.length; i++) {
-		                convertedArgs[i] = convert(paramTypes[i], args.get(i));
-		            }
-
-		            // Instantiate the object with the converted arguments.
-		            return ctor.newInstance(convertedArgs);
-		        }
-			
-		}
-		
-		return Optional.of(rawDebits);
 	}
 
 	private EntityManager getEntityManager() {
